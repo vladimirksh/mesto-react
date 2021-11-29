@@ -1,6 +1,6 @@
 function ImagePopup(props) {
 
-  let className = 
+  const className = 
   `popup
    popup_zoom-image
    ${props.card ? 'popup_open' : ''}`

@@ -1,6 +1,6 @@
 function PopupWithForm(props) {
 
-  let className = 
+  const className = 
   `popup
    popup${props.name} 
    ${props.isOpen ? 'popup_open' : ''}`
