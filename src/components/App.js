@@ -60,7 +60,7 @@ onCardClick={handleCardClick}
         isOpen={isEditAvatarPopupOpen} 
         onClose={closeAllPopups}>
         <label className="popup__field">
-            <input id="img-input" className="popup__input popup__input_type_avatar" value="" placeholder="Ссылка на картинку" name="image" type="url" required />
+            <input id="img-input" className="popup__input popup__input_type_avatar" placeholder="Ссылка на картинку" name="image" type="url" required />
             <span className="img-input-error popup__input-error"></span>
           </label>
           <button className="popup__save popup__save_add-card" type="submit">Сохранить</button>
@@ -71,12 +71,12 @@ onCardClick={handleCardClick}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}>
         <label className="popup__field">
-            <input id="name-input" className="popup__input popup__input_type_name" value="" name="name" type="text" minLength="2" maxLength="40" required />
+            <input id="name-input" className="popup__input popup__input_type_name" name="name" type="text" minLength="2" maxLength="40" required />
             <span className="name-input-error popup__input-error"></span>
           </label>
   
           <label className="popup__field">
-            <input id="about-input" className="popup__input popup__input_type_about" value="" name="about" type="text" minLength="2" maxLength="200" required />
+            <input id="about-input" className="popup__input popup__input_type_about" name="about" type="text" minLength="2" maxLength="200" required />
             <span className="about-input-error popup__input-error"></span>
           </label>
   
@@ -88,12 +88,12 @@ onCardClick={handleCardClick}
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}>
         <label className="popup__field">
-            <input  id="place-input" className="popup__input popup__input_type_place" value="" placeholder="Название" name="place" type="text" minLength="1" maxLength="30" required />
+            <input  id="place-input" className="popup__input popup__input_type_place" placeholder="Название" name="place" type="text" minLength="1" maxLength="30" required />
             <span className="place-input-error popup__input-error"></span>
           </label>
   
           <label className="popup__field">
-            <input id="image-input" className="popup__input popup__input_type_image" value="" placeholder="Ссылка на картинку" name="image" type="url" required />
+            <input id="image-input" className="popup__input popup__input_type_image" placeholder="Ссылка на картинку" name="image" type="url" required />
             <span className="image-input-error popup__input-error"></span>
           </label>
   
