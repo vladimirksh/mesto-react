@@ -27,25 +27,25 @@
       .then(this._getResponse);
   }
 
-  patchUserData(data) {
+  patchUserData(userName, userAbout) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        about: data.about
+        name: userName,
+        about: userAbout
       })
     })
     .then(this._getResponse)
   }
 
-  postCard(data) {
+  postCard(place, image) {
     return fetch(`${this._url}/cards`, {
         method: 'POST',
         headers: this._headers,
         body: JSON.stringify({
-          name: data.place,
-          link: data.image
+          name: place,
+          link: image
         })
       })
       .then(this._getResponse);
@@ -59,28 +59,29 @@
       .then(this._getResponse);
   }
 
-  putLike(cardId) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: this._headers,
-    })
-      .then(this._getResponse);
-  }
-
-  deleteLike(cardID) {
-    return fetch(`${this._url}/cards/likes/${cardID}`, {
+  changeLikeCardStatus(cardId, isLiked) {
+    if(isLiked) {
+      return fetch(`${this._url}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: this._headers,
+      })
+        .then(this._getResponse);
+    } else {
+      return fetch(`${this._url}/cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: this._headers
       })
       .then(this._getResponse);
+    }
+
   }
 
-  patchUserAvatar(data) {
+  patchUserAvatar(image) {
     return fetch(`${this._url}/users/me/avatar`, {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          avatar: data.image
+          avatar: image
         })
       })
       .then(this._getResponse);
