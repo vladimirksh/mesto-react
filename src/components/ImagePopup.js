@@ -10,12 +10,12 @@ function ImagePopup(props) {
   return(
 <div className={className}>
   <div className="popup__background"
-  onClick={() => props.onClose()}></div>
+  onClick={props.onClose}></div>
   <div className="popup__content">
     <button
     className="popup__close popup__close-zoom"
     type="button"
-    onClick={() => props.onClose()}></button>
+    onClick={props.onClose}></button>
     <div className="popup__body-zoom">
     <img className="popup__image" src={`${props.card}`} alt={props.name} />
     <p className="popup__text"></p>
