@@ -47,10 +47,7 @@ function App() {
     const isOwner = card.owner._id === currentUser._id;
     if (isOwner) {
       api.deleteCard(card._id)
-      .then(res => {
-          if (res.ok) {
-            return res.json();
-          }
+      .then(() => {
           setCards(cards.filter(i => i._id !== card._id))
         })
       .catch(err => console.log(err))
@@ -60,12 +57,8 @@ function App() {
   function handleUpdateUser(userName, userAbout) {
     api.patchUserData(userName, userAbout)
       .then(res => {
-        if (res.ok) {
-          return res.json();
-         }
         setCurrentUser(res);
         closeAllPopups();
-
       })
       .catch(err => console.log(err));
   }
@@ -73,9 +66,6 @@ function App() {
   function handleUpdateAvatar(userAvatar) {
     api.patchUserAvatar(userAvatar)
       .then(res => {
-        if (res.ok) {
-          return res.json();
-         }
         setCurrentUser(res);
         closeAllPopups();
       })
@@ -85,9 +75,6 @@ function App() {
   function handleAddPlaceSubmit(plase, image) {
     api.postCard(plase, image)
       .then(res => {
-        if (res.ok) {
-          return res.json();
-         }
         setCards([res, ...cards]);
         closeAllPopups();
       })
