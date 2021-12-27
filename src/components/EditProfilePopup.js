@@ -8,6 +8,16 @@ function EditProfilePopup(props) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  //состояния для определения прикосновения инпутов
+  const [nameDirty, setNameDirty] = useState(false);
+  const [descriptionDirty, setDescriptionDirty] = useState(false);
+  //состояние для ошибок
+  const [nameError, setNameError] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
+  //состояние валидной формы
+  const [formValid, setFormValid] = useState(false);
+  const buttonClassName = `popup__save popup__save-change ${formValid ? '' : 'popup__save_inactive'}`
+
   // После загрузки текущего пользователя из API
   // его данные будут использованы в управляемых компонентах.
   useEffect(() => {
@@ -15,13 +25,48 @@ function EditProfilePopup(props) {
     setDescription(currentUser.about);
   }, [currentUser]);
 
+  useEffect(() => {
+    if (nameError || descriptionError) {
+      setFormValid(false)
+    } else {
+      setFormValid(true)
+    }
+  }, [nameError, descriptionError])
 
   function handleChangeName(e) {
     setName(e.target.value);
+    //проверяем наш инпут на валидность
+    if (!e.target.validity.valid) {
+      setNameError(e.target.validationMessage)
+      if (!e.target.value) {
+        setNameError(e.target.validationMessage)
+      }
+    } else {
+      setNameError('')
+    }
   }
 
   function handleChangeDescription(e) {
     setDescription(e.target.value);
+    //проверяем наш инпут на валидность
+    if (!e.target.validity.valid) {
+      setDescriptionError(e.target.validationMessage)
+      if (!e.target.value) {
+        setDescriptionError(e.target.validationMessage)
+      }
+    } else {
+      setDescriptionError('')
+
+    }
+  }
+  //меняем состояние посещения инпутов
+  function handelBlur(e) {
+    switch (e.target.name) {
+      case `name`: setNameDirty(true)
+        break
+      case `about`: setDescriptionDirty(true)
+        break
+    }
   }
 
   function handleSubmit(e) {
@@ -42,18 +87,30 @@ function EditProfilePopup(props) {
       onClose={props.onClose}
       onSubmit={handleSubmit}>
       <label className="popup__field">
-        <input value={name || ''}
-          onChange={handleChangeName} id="name-input" className="popup__input popup__input_type_name" name="name" type="text" minLength="2" maxLength="40" required />
-        <span className="name-input-error popup__input-error"></span>
+        <input
+          value={name || ''}
+          name="name"
+          onChange={handleChangeName}
+          onBlur={(e) => { handelBlur(e) }}
+          id="name-input"
+          className="popup__input popup__input_type_name"
+          type="text" minLength="2" maxLength="40" required />
+        {(nameDirty && nameError) && <span className="name-input-error popup__input-error popup__input-error_active">{nameError}</span>}
       </label>
 
       <label className="popup__field">
-        <input value={description || ''}
-          onChange={handleChangeDescription} id="about-input" className="popup__input popup__input_type_about" name="about" type="text" minLength="2" maxLength="200" required />
-        <span className="about-input-error popup__input-error"></span>
+        <input
+          value={description || ''}
+          name="about"
+          onChange={handleChangeDescription}
+          onBlur={(e) => { handelBlur(e) }}
+          id="about-input"
+          className="popup__input popup__input_type_about"
+          type="text" minLength="2" maxLength="200" required />
+        {(descriptionDirty && descriptionError) && <span className="name-input-error popup__input-error popup__input-error_active">{descriptionError}</span>}
       </label>
 
-      <button className="popup__save popup__save-change" type="submit">Сохранить</button>
+      <button className={buttonClassName} type="submit">Сохранить</button>
     </PopupWithForm>
   )
 }
